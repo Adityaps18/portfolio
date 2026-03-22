@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Aditya</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= RESET ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #0b0f2f;
+      color: white;
+    }
+
+    /* ================= NAVBAR ================= */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 70px;
+      background: #0b0f2f;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: #9b44ec;
+    }
+
+    /* ================= BLOG PAGE ================= */
+    .blog-section {
+  padding: 80px 10%;
+  background: linear-gradient(135deg, #0b0f2f, #1b2a6b);
+  color: white;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 50px;
+}
+
+.blog-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.blog-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+/* 🔥 REAL GLOW HERE */
+.blog-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow:0 25px 50px rgba(155, 68, 236, 0.35);
+    background:  linear-gradient(135deg, #1a1f5f, #2a1f4f);;
+  
+}
+
+
+.blog-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.blog-content {
+  padding: 20px;
+}
+
+.blog-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.blog-content p {
+  font-size: 0.95rem;
+  color: #ddd;
+  line-height: 1.6;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 12px;
+  color: #9b44ec;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.read-more:hover {
+  color: white;
+}
+
+
+    .read-more:hover {
+      color: #9b44ec;
+      transform: translateX(4px);
+    }
+
+    /* ================= REVEAL ================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 0.9s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================= CURSOR ================= */
+    html, body {
+      cursor: none;
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #9b44ec;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    @media (max-width: 768px) {
+      .blog-title {
+        font-size: 2.2rem;
+      }
+    }
+    .logo a {
+  color: white;          /* text white */
+  text-decoration: none; /* underline remove */
+}
+.logo a:hover {
+  color: #9b44ec;
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-text {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* 🔥 HOVER WORKING FIX */
+.logo-link:hover .logo-text {
+  color: #9b44ec;
+}
+
+.logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+    /* ================= FOOTER ================= */
+
+.footer {
+  background: #070a24;
+  color: #d1d5db;
+  padding: 60px 40px 25px;
+  border-top: 1px solid rgba(155, 68, 236, 0.2);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 40px;
+}
+
+/* LEFT */
+.footer-left h3 {
+  color: white;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.footer-left p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #9ca3af;
+}
+
+/* CENTER */
+.footer-links h4,
+.footer-social h4 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links ul li {
+  margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+  text-decoration: none;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #9b44ec;
+  padding-left: 4px;
+}
+
+/* RIGHT */
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-icons a {
+  text-decoration: none;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #9b44ec;
+}
+
+/* BOTTOM */
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .social-icons {
+    align-items: center;
+  }
+}
+  .logo a {
+  color: white;          /* text white */
+  text-decoration: none; /* underline remove */
+}
+.logo a:hover {
+  color: #9b44ec;
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-text {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">
+  <a href="index.html" class="logo-link">
+    <img src="logo.png" alt="logo" class="logo-img">
+    <span class="logo-text">Aditya</span>
+  </a>
+</div>
+
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="blog-section">
+  <h2 class="section-title">My Blogs</h2>
+  <p class="reveal" style="max-width: 760px; margin: 0 auto 40px; text-align: center; color: #d1d5db; line-height: 1.8;">
+    Notes from my journey in computer science, web development, and data analysis as I keep learning and building.
+  </p>
+
+  <div class="blog-container">
+
+    <!-- Blog Card 1 -->
+    <div class="blog-card" data-href="blog-detail.html?post=cs-journey" tabindex="0" role="link">
+      <img src="web.avif" alt="Why I Chose Computer Science" class="blog-img">
+
+      <div class="blog-content">
+        <h3>Why I Chose Computer Science</h3>
+        <p>
+          In this blog, I share my journey of choosing Computer Science as my field, my interest in problem solving, and how technology inspires me to build meaningful solutions.
+        </p>
+        <a href="blog-detail.html?post=cs-journey" class="read-more">Read More →</a>
+      </div>
+    </div>
+
+    <!-- Blog Card 2 -->
+    <div class="blog-card" data-href="blog-detail.html?post=web-development-student" tabindex="0" role="link">
+      <img src="web.avif" alt="Learning Web Development as a Student" class="blog-img">
+
+      <div class="blog-content">
+        <h3>Learning Web Development as a Student</h3>
+        <p>
+          This blog focuses on my experience of learning web development alongside college studies, the challenges I faced, and how consistent practice helped me improve my skills.
+        </p>
+        <a href="blog-detail.html?post=web-development-student" class="read-more">Read More →</a>
+      </div>
+    </div>
+
+    <!-- Blog Card 3 -->
+    <div class="blog-card" data-href="blog-detail.html?post=data-analysis-student" tabindex="0" role="link">
+      <img src="web.avif" alt="Learning Data Analysis as a CS Student" class="blog-img">
+
+      <div class="blog-content">
+        <h3>Learning Data Analysis as a CS Student</h3>
+        <p>
+          In this blog, I share how I started learning data analysis using
+          Python, Pandas, and NumPy.
+        </p>
+        <a href="blog-detail.html?post=data-analysis-student" class="read-more">Read More →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- LEFT -->
+    <div class="footer-left">
+      <h3>Aditya Pratap Singh</h3>
+      <p>
+        Passionate Web Developer & Software Developer  
+        focused on building clean and impactful digital experiences.
+      </p>
+    </div>
+
+    <!-- CENTER -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="footer-social">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/aditya-pratap-singh-2380bb29a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/Adityaps18" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.instagram.com/aditya_18ps/?__pwa=1" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="mailto:pratapsinghaditya380@gmail.com">Email</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 Aditya Pratap Singh. All rights reserved.
+  </div>
+</footer>
+
+<!-- CURSOR -->
+<div class="cursor-dot"></div>
+
+<!-- CURSOR SCRIPT -->
+<script>
+  const cursor = document.querySelector('.cursor-dot');
+  const blogCards = document.querySelectorAll('.blog-card[data-href]');
+
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  document.querySelectorAll('a, .blog-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+      cursor.style.background = '#c084fc';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursor.style.background = '#9b44ec';
+    });
+  });
+
+  blogCards.forEach(card => {
+    card.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        return;
+      }
+
+      window.location.href = card.dataset.href;
+    });
+
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        window.location.href = card.dataset.href;
+      }
+    });
+  });
+</script>
+
+<!-- REVEAL SCRIPT -->
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+
+  function revealOnScroll() {
+    const windowHeight = window.innerHeight;
+    reveals.forEach(el => {
+      const elementTop = el.getBoundingClientRect().top;
+      if (elementTop < windowHeight - 120) {
+        el.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
+
+</body>
+</html>

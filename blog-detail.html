@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Details | Aditya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0b0f2f;
+      --bg-secondary: #11183f;
+      --bg-accent: #1b2a6b;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text-main: #ffffff;
+      --text-soft: #d1d5db;
+      --text-muted: #9ca3af;
+      --accent: #9b44ec;
+      --accent-soft: #d8b4fe;
+      --shadow: 0 28px 60px rgba(0, 0, 0, 0.24);
+    }
+    html, body { cursor: none; scroll-behavior: smooth; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(155, 68, 236, 0.22), transparent 25%),
+        radial-gradient(circle at top right, rgba(57, 127, 255, 0.16), transparent 30%),
+        linear-gradient(160deg, var(--bg-primary), var(--bg-secondary) 50%, var(--bg-accent));
+      color: var(--text-main);
+    }
+    .navbar {
+      position: fixed; top: 0; width: 100%; height: 70px; background: rgba(11, 15, 47, 0.88);
+      backdrop-filter: blur(14px); display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .logo-text { color: white; font-size: 1.3rem; font-weight: 600; transition: color 0.3s ease; }
+    .logo-link:hover .logo-text { color: var(--accent); }
+    .nav-links { list-style: none; display: flex; gap: 28px; align-items: center; }
+    .nav-links a { text-decoration: none; color: white; font-size: 1rem; transition: color 0.3s ease; }
+    .nav-links a.active, .nav-links a:hover { color: var(--accent); }
+    .page-shell { padding: 112px 7% 70px; }
+    .article-hero {
+      max-width: 1200px; margin: 0 auto 30px; display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 26px; align-items: stretch;
+    }
+    .hero-copy, .hero-visual, .article-main, .article-aside, .related-posts {
+      background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: var(--shadow); backdrop-filter: blur(16px);
+    }
+    .hero-copy { border-radius: 28px; padding: 42px; position: relative; overflow: hidden; }
+    .hero-copy::before {
+      content: ""; position: absolute; inset: auto -60px -60px auto; width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(155, 68, 236, 0.22), transparent 70%); pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px;
+      background: rgba(155, 68, 236, 0.14); color: var(--accent-soft); font-size: 0.9rem; margin-bottom: 18px;
+    }
+    .hero-title { font-size: clamp(2.3rem, 4vw, 4.1rem); line-height: 1.06; font-weight: 800; margin-bottom: 18px; max-width: 11ch; }
+    .hero-summary { color: var(--text-soft); font-size: 1.05rem; line-height: 1.9; max-width: 58ch; margin-bottom: 26px; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .meta-pill { padding: 10px 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); color: var(--text-soft); font-size: 0.92rem; }
+    .lead-quote {
+      padding: 18px 20px; border-left: 3px solid var(--accent); background: rgba(255, 255, 255, 0.04);
+      border-radius: 18px; color: #f3e8ff; line-height: 1.8; font-size: 1rem;
+    }
+    .hero-visual { border-radius: 28px; overflow: hidden; min-height: 100%; position: relative; }
+    .hero-visual img { width: 100%; height: 100%; min-height: 520px; object-fit: cover; display: block; }
+    .hero-visual::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(11, 15, 47, 0.78), rgba(11, 15, 47, 0.08)); pointer-events: none;
+    }
+    .content-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 26px; align-items: start; }
+    .article-main { border-radius: 28px; padding: 38px; }
+    .article-main p { color: #e5e7eb; font-size: 1.04rem; line-height: 1.95; margin-bottom: 22px; }
+    .article-main h2 { font-size: 1.9rem; margin: 34px 0 16px; line-height: 1.25; }
+    .article-main ul { margin: 0 0 24px 22px; color: #e5e7eb; line-height: 1.9; }
+    .article-main li { margin-bottom: 10px; }
+    .section-anchor { scroll-margin-top: 100px; }
+    .insight-box {
+      margin: 28px 0; padding: 24px; border-radius: 22px; background: linear-gradient(135deg, rgba(155, 68, 236, 0.16), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(216, 180, 254, 0.16);
+    }
+    .insight-box h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .insight-box p { margin-bottom: 0; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+    .tag { padding: 8px 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); color: var(--accent-soft); font-size: 0.9rem; }
+    .author-box {
+      margin-top: 36px; padding: 24px; border-radius: 24px; background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .author-box h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .author-box p { margin-bottom: 0; color: var(--text-soft); }
+    .article-aside { border-radius: 28px; padding: 26px; position: sticky; top: 96px; }
+    .aside-title { font-size: 1.1rem; margin-bottom: 14px; }
+    .toc { list-style: none; margin-bottom: 30px; }
+    .toc li + li { margin-top: 12px; }
+    .toc a, .back-link, .related-link { text-decoration: none; color: var(--text-soft); transition: color 0.3s ease, transform 0.3s ease; }
+    .toc a:hover, .back-link:hover, .related-link:hover { color: white; transform: translateX(3px); }
+    .mini-card {
+      padding: 18px; border-radius: 20px; background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 18px;
+    }
+    .mini-card p { color: var(--text-soft); line-height: 1.75; font-size: 0.95rem; }
+    .back-link { display: inline-flex; margin-top: 6px; font-weight: 500; color: var(--accent-soft); }
+    .related-posts { max-width: 1200px; margin: 28px auto 0; border-radius: 28px; padding: 30px; }
+    .related-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }
+    .related-header h2 { font-size: 1.6rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .related-card {
+      display: block; padding: 22px; border-radius: 22px; background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08); text-decoration: none;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .related-card:hover { transform: translateY(-6px); border-color: rgba(216, 180, 254, 0.24); box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18); }
+    .related-card span { display: inline-block; margin-bottom: 12px; color: var(--accent-soft); font-size: 0.88rem; }
+    .related-card h3 { color: white; font-size: 1.12rem; line-height: 1.4; margin-bottom: 10px; }
+    .related-card p { color: var(--text-soft); line-height: 1.75; font-size: 0.95rem; }
+    .footer {
+      background: #070a24; color: #d1d5db; padding: 60px 40px 25px; border-top: 1px solid rgba(155, 68, 236, 0.2);
+      margin-top: 46px;
+    }
+    .footer-container { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
+    .footer-left h3 { color: white; font-size: 1.4rem; margin-bottom: 12px; }
+    .footer-left p, .footer-links ul li a, .social-icons a {
+      font-size: 0.95rem; line-height: 1.7; color: #9ca3af; text-decoration: none; transition: 0.3s;
+    }
+    .footer-links h4, .footer-social h4 { font-size: 1.1rem; margin-bottom: 12px; color: white; }
+    .footer-links ul { list-style: none; }
+    .footer-links ul li { margin-bottom: 8px; }
+    .footer-links ul li a:hover, .social-icons a:hover { color: var(--accent); }
+    .social-icons { display: flex; flex-direction: column; gap: 10px; }
+    .footer-bottom { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #6b7280; }
+    .cursor-dot {
+      position: fixed; width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
+      pointer-events: none; transform: translate(-50%, -50%); z-index: 9999;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1080px) {
+      .article-hero, .content-grid { grid-template-columns: 1fr; }
+      .hero-visual img { min-height: 340px; }
+      .article-aside { position: static; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 14px 18px; height: auto; min-height: 70px; flex-wrap: wrap; gap: 12px;
+      }
+      .nav-links { gap: 14px; flex-wrap: wrap; }
+      .page-shell { padding: 130px 5% 50px; }
+      .hero-copy, .article-main, .article-aside, .related-posts { padding: 22px; }
+      .hero-title { max-width: none; }
+      .footer-container { grid-template-columns: 1fr; text-align: center; }
+      .social-icons { align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html" class="logo-link">
+        <img src="logo.png" alt="logo" class="logo-img">
+        <span class="logo-text">Aditya</span>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-shell">
+    <section class="article-hero reveal">
+      <div class="hero-copy">
+        <div class="eyebrow" id="article-category">Featured Story</div>
+        <h1 class="hero-title" id="article-title"></h1>
+        <p class="hero-summary" id="article-summary"></p>
+        <div class="meta-row">
+          <span class="meta-pill" id="article-date"></span>
+          <span class="meta-pill" id="article-read-time"></span>
+          <span class="meta-pill">By Aditya Pratap Singh</span>
+        </div>
+        <div class="lead-quote" id="article-quote"></div>
+      </div>
+
+      <div class="hero-visual">
+        <img src="web.avif" alt="" id="article-image">
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <article class="article-main reveal" id="article-main"></article>
+
+      <aside class="article-aside reveal">
+        <h2 class="aside-title">In This Article</h2>
+        <ul class="toc" id="article-toc"></ul>
+
+        <div class="mini-card">
+          <h3 class="aside-title">Author Note</h3>
+          <p>
+            These posts are written from my own student journey, focused on learning in public and sharing what has shaped my growth in tech.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h3 class="aside-title">Keep Reading</h3>
+          <p>
+            If you enjoy this post, you can explore the other two blog entries from the related posts section below.
+          </p>
+          <a href="blog.html" class="back-link">&larr; Back to all blogs</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="related-posts reveal">
+      <div class="related-header">
+        <h2>More From My Blog</h2>
+        <a href="blog.html" class="related-link">View all posts &rarr;</a>
+      </div>
+      <div class="related-grid" id="related-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <h3>Aditya Pratap Singh</h3>
+        <p>
+          Passionate Web Developer & Software Developer focused on building clean and impactful digital experiences.
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Connect</h4>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/aditya-pratap-singh-2380bb29a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/Adityaps18" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.instagram.com/aditya_18ps/?__pwa=1" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="mailto:pratapsinghaditya380@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 Aditya Pratap Singh. All rights reserved.</div>
+  </footer>
+
+  <div class="cursor-dot"></div>
+  <script>
+    const posts = {
+      "cs-journey": {
+        category: "Career Journey",
+        title: "Why I Chose Computer Science",
+        date: "January 2025",
+        readTime: "6 min read",
+        image: "web.avif",
+        summary: "Computer Science felt like the right direction because it combined logic, creativity, and the chance to solve real problems. What started as curiosity slowly became a clear career path.",
+        quote: "I did not choose Computer Science only to learn programming. I chose it because I wanted to learn how to think, solve, and build with purpose.",
+        sections: [
+          {
+            id: "spark",
+            title: "The First Spark",
+            paragraphs: [
+              "My interest in Computer Science started with simple curiosity. I often wondered how websites, apps, and digital tools actually worked behind the screen. Every time I opened a website or used an application, I found myself thinking about the logic behind the interface and the effort required to make it work smoothly.",
+              "That curiosity gradually turned into active learning. I started exploring the basics of technology, reading about programming, and understanding how software can turn an idea into something useful. What attracted me most was that Computer Science never felt limited to one topic. It opened the door to web development, software engineering, data analysis, and many other fields.",
+              "This made the subject exciting from the beginning. Instead of feeling like a fixed path, it felt like a space where I could experiment, improve, and find the kind of work that suited my strengths."
+            ]
+          },
+          {
+            id: "problem-solving",
+            title: "Why Problem Solving Pulled Me In",
+            paragraphs: [
+              "The strongest reason I connected with Computer Science was problem solving. I enjoy taking a challenge, understanding it deeply, and then finding a practical way forward. Coding reflects that process perfectly. Every project begins with a problem, and every good solution comes from breaking it into smaller parts.",
+              "That style of thinking made this field feel natural to me. It taught me patience, structure, and attention to detail. Even when a solution does not work at first, the process of debugging helps build discipline. Over time, I began to appreciate that the real growth in this field comes not from avoiding mistakes, but from learning how to fix them.",
+              "This problem-solving mindset now influences how I approach learning itself. Whether I am building a section of a website or studying a new tool, I try to understand the pattern behind it rather than memorizing isolated facts."
+            ],
+            insight: "What keeps me interested in Computer Science is that every skill in it can be turned into action. You learn, you build, you improve, and you see the result."
+          },
+          {
+            id: "creative-side",
+            title: "The Creative Side of Technology",
+            paragraphs: [
+              "People often think Computer Science is only about technical logic, but I discovered a creative side in it as well. When building websites or designing solutions, there is room for personal style, thoughtful structure, and user-focused thinking. That balance between analysis and creativity is one of the main reasons I continue to enjoy this field.",
+              "I especially like that technology can turn abstract ideas into visible results. A concept that starts on paper can become a page, a tool, or a complete project. That process makes learning feel meaningful because every new concept can be applied in a real way."
+            ]
+          },
+          {
+            id: "direction",
+            title: "How It Shapes My Direction",
+            paragraphs: [
+              "Choosing Computer Science has given me more than an academic subject. It has shaped the way I think about growth, discipline, and long-term improvement. It pushes me to stay curious and to keep building rather than only consuming information.",
+              "As I continue learning web development and data analysis, I see Computer Science as the foundation that connects all of those interests. It gives me a direction that is both practical and inspiring, and it motivates me to keep becoming a better developer with every project."
+            ],
+            list: [
+              "It strengthens logical thinking and structured problem solving.",
+              "It gives space for creativity through building digital products.",
+              "It creates a strong base for exploring multiple technical fields.",
+              "It keeps learning exciting because the field is always evolving."
+            ]
+          }
+        ],
+        tags: ["Computer Science", "Career Choice", "Student Journey", "Problem Solving"]
+      },
+      "web-development-student": {
+        category: "Learning Journey",
+        title: "Learning Web Development as a Student",
+        date: "February 2025",
+        readTime: "7 min read",
+        image: "web.avif",
+        summary: "Learning web development during college has been a journey of balancing classes, practice, and personal projects. It taught me that steady effort matters more than fast progress.",
+        quote: "Web development became more than a technical skill for me. It became the place where I could turn practice into something visible and personal.",
+        sections: [
+          {
+            id: "starting-point",
+            title: "Starting From the Basics",
+            paragraphs: [
+              "When I began learning web development, everything felt new. HTML, CSS, and JavaScript were not just tools to memorize; they were new ways of thinking about structure, design, and interaction. At first, even simple layouts looked difficult because I was still understanding how the pieces fit together.",
+              "I started by creating small sections and experimenting with basic styling. Those early exercises were important because they gave me confidence. Instead of waiting to build something perfect, I focused on understanding one concept at a time and turning it into practice."
+            ]
+          },
+          {
+            id: "balance",
+            title: "Balancing College and Self-Learning",
+            paragraphs: [
+              "One of the hardest parts of the journey was balancing college responsibilities with self-learning. Assignments, classes, and exams often competed with the time I wanted to spend coding. There were days when progress felt slow, and I had to remind myself that consistency is more important than intensity.",
+              "What helped was building a manageable routine. Even one or two focused hours of work made a difference when repeated regularly. Over time, those smaller sessions added up into noticeable improvement."
+            ],
+            insight: "A realistic routine is better than an ambitious plan you cannot sustain. Small, repeated practice builds stronger momentum."
+          },
+          {
+            id: "projects",
+            title: "Why Projects Changed Everything",
+            paragraphs: [
+              "The biggest improvement came when I started building real projects. Projects make web development feel alive because they force you to connect different concepts. You stop thinking only about syntax and start thinking about layout, responsiveness, structure, and user experience together.",
+              "My portfolio became one of the best learning spaces for me. Every section helped me understand something new, whether it was spacing, hover effects, responsive behavior, or content presentation. Fixing mistakes in projects taught me far more than simply reading theory."
+            ]
+          },
+          {
+            id: "mindset",
+            title: "The Mindset That Helped Me Improve",
+            paragraphs: [
+              "What made the difference was not talent, but patience. Web development can feel overwhelming at the beginning because there are so many things to learn. But once I accepted that improvement happens gradually, the process became more enjoyable.",
+              "Now, I try to approach learning with curiosity instead of pressure. Each project becomes a chance to apply what I know and notice what I still need to improve. That mindset keeps me growing while also making the journey rewarding."
+            ],
+            list: [
+              "Practice regularly, even if the session is short.",
+              "Build projects instead of only watching tutorials.",
+              "Treat errors as part of the learning process.",
+              "Focus on progress, not perfection."
+            ]
+          }
+        ],
+        tags: ["Web Development", "Student Life", "Learning by Building", "Frontend"]
+      },
+      "data-analysis-student": {
+        category: "Data Learning",
+        title: "Learning Data Analysis as a CS Student",
+        date: "March 2025",
+        readTime: "6 min read",
+        image: "web.avif",
+        summary: "Data analysis introduced me to the side of technology where raw information becomes insight. It strengthened my analytical thinking and showed me how programming can be used beyond building interfaces.",
+        quote: "Data analysis taught me that code is not only for creating products. It can also help us understand patterns, decisions, and stories hidden inside data.",
+        sections: [
+          {
+            id: "why-data",
+            title: "Why I Wanted to Explore Data Analysis",
+            paragraphs: [
+              "As I continued studying Computer Science, I wanted to learn something that complemented development and expanded my technical perspective. Data analysis stood out because it connects logic, mathematics, and practical decision-making. It is not only about handling numbers; it is about understanding what those numbers actually mean.",
+              "That idea appealed to me because it showed another side of technology. Instead of only building features, data analysis helps uncover patterns, measure outcomes, and guide decisions with evidence."
+            ]
+          },
+          {
+            id: "tools",
+            title: "Getting Comfortable With the Tools",
+            paragraphs: [
+              "I started with Python because it already felt approachable and versatile. From there, I moved into libraries like Pandas and NumPy. At first, working with datasets felt unfamiliar. Cleaning data, handling missing values, and understanding tabular structures required a different kind of patience.",
+              "But once I practiced on small examples, those tools started making sense. I could see how even a simple dataset could reveal trends once it was cleaned and explored properly. That moment made data analysis feel practical and exciting."
+            ],
+            insight: "The turning point in learning data analysis is when messy raw data stops looking confusing and starts looking like a problem you know how to solve."
+          },
+          {
+            id: "thinking",
+            title: "How It Improved My Thinking",
+            paragraphs: [
+              "What I like most about data analysis is the process. You begin with information that may look unorganized, ask the right questions, and work step by step until you reach useful conclusions. That process improves observation, attention to detail, and analytical thinking.",
+              "It also teaches discipline. You cannot rush data work if you want meaningful results. You need to clean carefully, check assumptions, and interpret the findings with clarity. Those habits are useful far beyond one subject."
+            ]
+          },
+          {
+            id: "value",
+            title: "Why It Matters for My Growth",
+            paragraphs: [
+              "Learning data analysis has strengthened my overall technical base. It complements programming very well because it shows how code can support insight as much as functionality. It also helps me think more deeply about how information is used in technology.",
+              "As I continue learning, I see data analysis as a valuable skill that broadens my perspective as a developer and problem solver. It adds another practical layer to my Computer Science journey and makes me more confident about working across different kinds of tech problems."
+            ],
+            list: [
+              "It improves analytical and structured thinking.",
+              "It adds practical value to Python programming skills.",
+              "It shows how technology can support decision-making.",
+              "It complements software and web development in a meaningful way."
+            ]
+          }
+        ],
+        tags: ["Data Analysis", "Python", "Pandas", "Computer Science"]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const activeSlug = posts[params.get("post")] ? params.get("post") : "cs-journey";
+    const post = posts[activeSlug];
+    const relatedPosts = Object.entries(posts).filter(([key]) => key !== activeSlug);
+
+    document.title = `${post.title} | Aditya`;
+    document.getElementById("article-category").textContent = post.category;
+    document.getElementById("article-title").textContent = post.title;
+    document.getElementById("article-summary").textContent = post.summary;
+    document.getElementById("article-date").textContent = post.date;
+    document.getElementById("article-read-time").textContent = post.readTime;
+    document.getElementById("article-quote").textContent = post.quote;
+    document.getElementById("article-image").src = post.image;
+    document.getElementById("article-image").alt = post.title;
+
+    const articleMain = document.getElementById("article-main");
+    const articleToc = document.getElementById("article-toc");
+    const relatedGrid = document.getElementById("related-grid");
+
+    articleMain.innerHTML = post.sections.map((section) => {
+      const paragraphs = section.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("");
+      const insight = section.insight ? `<div class="insight-box"><h3>Key Insight</h3><p>${section.insight}</p></div>` : "";
+      const list = section.list ? `<ul>${section.list.map((item) => `<li>${item}</li>`).join("")}</ul>` : "";
+
+      return `
+        <section class="section-anchor" id="${section.id}">
+          <h2>${section.title}</h2>
+          ${paragraphs}
+          ${insight}
+          ${list}
+        </section>
+      `;
+    }).join("") + `
+      <div class="tags">
+        ${post.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+      </div>
+      <div class="author-box">
+        <h3>About the writer</h3>
+        <p>I'm Aditya Pratap Singh, a Computer Science student exploring web development, problem solving, and data-driven thinking through hands-on projects and continuous learning.</p>
+      </div>
+    `;
+
+    articleToc.innerHTML = post.sections.map((section) => `
+      <li><a href="#${section.id}">${section.title}</a></li>
+    `).join("");
+
+    relatedGrid.innerHTML = relatedPosts.map(([key, value]) => `
+      <a class="related-card" href="blog-detail.html?post=${key}">
+        <span>${value.date}</span>
+        <h3>${value.title}</h3>
+        <p>${value.summary}</p>
+      </a>
+    `).join("");
+
+    const cursor = document.querySelector(".cursor-dot");
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
+    });
+
+    document.querySelectorAll("a, .related-card").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.style.transform = "translate(-50%, -50%) scale(1.8)";
+        cursor.style.background = "#c084fc";
+      });
+
+      el.addEventListener("mouseleave", () => {
+        cursor.style.transform = "translate(-50%, -50%) scale(1)";
+        cursor.style.background = "#9b44ec";
+      });
+    });
+
+    const reveals = document.querySelectorAll(".reveal");
+    function revealOnScroll() {
+      const windowHeight = window.innerHeight;
+      reveals.forEach((el) => {
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 120) {
+          el.classList.add("active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll();
+  </script>
+</body>
+</html>
