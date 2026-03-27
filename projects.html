@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects | Aditya</title>
+  <meta name="description" content="Explore projects by Aditya Pratap Singh including AI assistant development, full-stack product systems, and responsive frontend work.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- FONT AWESOME (for GitHub icon) -->
   <link rel="stylesheet"
@@ -57,6 +59,22 @@
     .nav-links a.active,
     .nav-links a:hover {
       color: #9b44ec;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 14px 18px;
+        height: auto;
+        min-height: 70px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .nav-links {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
     }
 
     /* ================= PROJECTS ================= */
@@ -145,8 +163,10 @@
       }
     }
     /* ===== CUSTOM CURSOR ===== */
-html, body {
-  cursor: none;   /* default mouse hide */
+@media (hover: hover) and (pointer: fine) {
+  html, body {
+    cursor: none;
+  }
 }
 
 .cursor-dot {
@@ -159,6 +179,11 @@ html, body {
   transform: translate(-50%, -50%);
   z-index: 9999;
   transition: transform 0.15s ease, background 0.15s ease;
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot {
+    display: none;
+  }
 }
 /* ===== SCROLL REVEAL ===== */
 .reveal {
@@ -330,51 +355,54 @@ html, body {
 <section class="projects-page">
   <h1  class="projects-title">My Projects</h1>
   <p class="reveal" style="max-width: 760px; margin: 0 auto 50px; text-align: center; color: #d1d5db; line-height: 1.8;">
-    A selection of projects that reflect my learning in Java, frontend development, responsive UI, and practical problem solving.
+    A curated set of projects that reflects my work across AI assistants, full-stack systems, and modern frontend experiences.
   </p>
 
   <div class="projects-container">
 
     <!-- PROJECT 1 -->
     <div class="project-card">
-      <h2 class="reveal">School Management System</h2>
-      <div class="project-tech">Java • OOP • File Handling</div>
+      <h2 class="reveal">Jarvis AI Assistant</h2>
+      <div class="project-tech">Python • Eel • Groq API • Face Authentication</div>
 
       <h4 class="reveal">Objective</h4>
       <p class="reveal">
-        To develop a structured and efficient system for managing
-        student records, attendance, and academic information.
+        To create an intelligent desktop assistant that combines security,
+        voice interaction, live responses, and useful automation in one seamless workflow.
       </p>
 
       <h4 class="reveal">Description</h4>
       <p class="reveal">
-        A Java-based application that allows administrators to manage
-        student data using object-oriented principles.
+        A Python-based assistant built to deliver a more practical AI experience through
+        biometric face authentication, conversational responses, web-assisted answers,
+        and Android phone-control actions like opening apps, sending messages, and making calls.
       </p>
 
-      <a class="github-link" href="https://github.com/Adityaps18" target="_blank" rel="noopener noreferrer">
+      <a class="github-link" href="https://github.com/Adityaps18/assistent" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-github"></i> View on GitHub
       </a>
     </div>
 
     <!-- PROJECT 2 -->
     <div class="project-card">
-      <h2 class="reveal">Coffee Shop Website</h2>
-      <div class="project-tech">HTML • CSS • JavaScript</div>
+      <h2 class="reveal">Product Management System</h2>
+      <div class="project-tech">FastAPI • React • PostgreSQL • SQLAlchemy</div>
 
       <h4 class="reveal">Objective</h4>
       <p class="reveal">
-        To design a visually appealing and responsive website
-        for a coffee shop to enhance online presence.
+        To build a complete product workflow system with a responsive frontend,
+        reliable backend APIs, and persistent database-driven operations.
       </p>
 
       <h4 class="reveal">Description</h4>
       <p class="reveal">
-        A modern UI website with responsive layout, smooth hover effects,
-        and JavaScript-based interactivity.
+        A full-stack application that handles product creation, updates, deletion,
+        and retrieval through RESTful APIs, while the React dashboard adds search,
+        sorting, and smoother management workflows. It showcases my ability to connect
+        backend architecture with a practical user-facing interface.
       </p>
 
-      <a class="github-link" href="https://github.com/Adityaps18" target="_blank" rel="noopener noreferrer">
+      <a class="github-link" href="https://github.com/Adityaps18/product---management---system" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-github"></i> View on GitHub
       </a>
     </div>
@@ -386,17 +414,16 @@ html, body {
 
       <h4 class="reveal">Objective</h4>
       <p class="reveal">
-        To create a personal portfolio showcasing skills,
-        projects, and experience professionally.
+        To present my skills, projects, and growth in a way that feels both professional and personal.
       </p>
 
       <h4 class="reveal">Description</h4>
       <p class="reveal">
-        A modern portfolio with animations, scroll reveal effects,
-        and clean UI design.
+        A responsive portfolio experience designed with smooth motion, clear sections,
+        and a strong visual identity to showcase my work, strengths, and development journey.
       </p>
 
-      <a class="github-link" href="https://github.com/Adityaps18" target="_blank" rel="noopener noreferrer">
+      <a class="github-link" href="https://github.com/Adityaps18/portfolio" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-github"></i> View on GitHub
       </a>
     </div>

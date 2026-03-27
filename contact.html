@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | Aditya</title>
+  <meta name="description" content="Contact Aditya Pratap Singh for collaborations, internships, freelance work, portfolio discussions, or project opportunities.">
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -60,6 +61,22 @@
     .nav-links a.active,
     .nav-links a:hover {
       color: #9b44ec;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 14px 18px;
+        height: auto;
+        min-height: 70px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .nav-links {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
     }
 
     /* ================= CONTACT PAGE ================= */
@@ -218,8 +235,10 @@
     }
 
     /* ================= CURSOR ================= */
-    html, body {
-      cursor: none;
+    @media (hover: hover) and (pointer: fine) {
+      html, body {
+        cursor: none;
+      }
     }
 
     .cursor-dot {
@@ -232,6 +251,12 @@
       transform: translate(-50%, -50%);
       z-index: 9999;
       transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .cursor-dot {
+        display: none;
+      }
     }
 
     @media (max-width: 900px) {

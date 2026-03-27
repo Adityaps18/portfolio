@@ -276,8 +276,10 @@
   transform: translateY(0);
 }
 /* custom cursor */
-body {
-  cursor: none;
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
 }
 .cursor-dot{
     width: 10px;
@@ -291,6 +293,12 @@ body {
   z-index: 9999;
   transform: translate(-50%, -50%);
 }
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .cursor-dot {
     display: none;

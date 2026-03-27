@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills | Aditya</title>
+  <meta name="description" content="View Aditya Pratap Singh skills across web development, programming, data analysis, and AI assistant workflows, plus related certificates.">
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -56,6 +57,22 @@
     .nav-links a.active,
     .nav-links a:hover {
       color: #9b44ec;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 14px 18px;
+        height: auto;
+        min-height: 70px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .nav-links {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
     }
 
     /* ================= SKILLS PAGE ================= */
@@ -129,8 +146,10 @@
     }
 
     /* ================= CURSOR ================= */
-    html, body {
-      cursor: none;
+    @media (hover: hover) and (pointer: fine) {
+      html, body {
+        cursor: none;
+      }
     }
 
     .cursor-dot {
@@ -143,6 +162,12 @@
       transform: translate(-50%, -50%);
       z-index: 9999;
       transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .cursor-dot {
+        display: none;
+      }
     }
 
     @media (max-width: 768px) {
@@ -423,6 +448,17 @@
         patterns, and extract meaningful insights. I am particularly
         interested in applying data-driven approaches to real-world
         problems.
+      </p>
+    </div>
+
+    <div class="skill-card reveal">
+      <h2 class="reveal">AI Assistant Development</h2>
+      <div class="skill-tools">Python • APIs • Automation • Voice Workflows</div>
+      <p class="reveal">
+        I build assistant-based applications that combine conversational AI,
+        automation, API integration, and practical user workflows. My Jarvis
+        project helped me work with voice interaction, authentication,
+        AI-generated responses, and real-world desktop assistant features.
       </p>
     </div>
 

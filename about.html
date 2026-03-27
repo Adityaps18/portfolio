@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Me | Aditya</title>
+  <meta name="description" content="Learn more about Aditya Pratap Singh, a Computer Science student focused on web development, software engineering, AI projects, and data analysis.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
  
@@ -20,9 +22,11 @@
 }
 /* ===== CUSTOM CURSOR (SAFE) ===== */
 
-html, body {
-      cursor: none;
-    }
+@media (hover: hover) and (pointer: fine) {
+  html, body {
+    cursor: none;
+  }
+}
 
     .cursor-dot {
       position: fixed;
@@ -39,6 +43,12 @@ html, body {
     @media (max-width: 768px) {
       .skills-title {
         font-size: 2.2rem;
+      }
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .cursor-dot {
+        display: none;
       }
     }
 
