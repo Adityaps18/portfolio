@@ -171,6 +171,7 @@
 
 <body>
 <div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
 
 <nav class="navbar">
   <div class="logo">
@@ -272,6 +273,9 @@
 
   <!-- Web Development -->
   <div class="skill-card">
+    <div class="skill-image-wrap">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=80" alt="Web development" class="skill-image">
+    </div>
     <h3 class="reveal">Web Development</h3>
     <span class="skill-sub">HTML · CSS · JavaScript</span>
     <p class="reveal">
@@ -283,6 +287,9 @@
 
   <!-- Data Analyst -->
   <div class="skill-card">
+    <div class="skill-image-wrap">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80" alt="Data analytics" class="skill-image">
+    </div>
     <h3 class="reveal">Data Analyst</h3>
     <span class="skill-sub">Pandas · NumPy</span>
     <p class="reveal">
@@ -294,6 +301,9 @@
 
   <!-- Programming -->
   <div class="skill-card">
+    <div class="skill-image-wrap">
+      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=900&q=80" alt="Programming with Java and Python" class="skill-image">
+    </div>
     <h3 class="reveal">Programming</h3>
     <span class="skill-sub">Java · Python</span>
     <p class="reveal">
@@ -304,6 +314,9 @@
   </div>
 
   <div class="skill-card">
+    <div class="skill-image-wrap">
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=900&q=80" alt="AI assistant development" class="skill-image">
+    </div>
     <h3 class="reveal">AI Assistant Development</h3>
     <span class="skill-sub">Python · APIs · Automation · Voice Workflows</span>
     <p class="reveal">
@@ -330,6 +343,9 @@
 
     <!-- Project 1 -->
     <div class="project-card">
+      <div class="project-image-wrap">
+        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=900&q=80" alt="Jarvis AI Assistant project" class="project-image">
+      </div>
       <h3 class="reveal">Jarvis AI Assistant</h3>
       <span class="project-sub">Python · Eel · Groq API · Face Authentication</span>
       <p class="reveal">
@@ -345,6 +361,9 @@
 
     <!-- Project 2 -->
     <div class="project-card">
+      <div class="project-image-wrap">
+        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=900&q=80" alt="Product management system project" class="project-image">
+      </div>
       <h3 class="reveal">Product Management System</h3>
       <span class="project-sub">FastAPI · React · PostgreSQL · SQLAlchemy</span>
       <p class="reveal">
@@ -360,6 +379,9 @@
 
     <!-- Project 3 -->
     <div class="project-card">
+      <div class="project-image-wrap">
+        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=900&q=80" alt="Responsive portfolio website project" class="project-image">
+      </div>
       <h3 class="reveal">Responsive Portfolio Website</h3>
       <span class="project-sub">HTML · CSS · JavaScript</span>
       <p class="reveal">
@@ -593,9 +615,36 @@
 </script>
 <script>
   const cursor = document.querySelector('.cursor-dot');
+  const cursorRing = document.querySelector('.cursor-ring');
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
 
   document.addEventListener('mousemove', (e) => {
-    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  (function animateRing() {
+    ringX += (mouseX - ringX) * 0.16;
+    ringY += (mouseY - ringY) * 0.16;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  document.querySelectorAll('a, button, .skill-card, .project-card, .service-card, .blog-card, .contact-form button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('hover');
+      cursorRing.classList.add('hover');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hover');
+      cursorRing.classList.remove('hover');
+    });
   });
 </script>
 <script>

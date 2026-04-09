@@ -104,9 +104,10 @@
     .service-card {
       background: #11163f;
       border-radius: 18px;
-      padding: 35px;
+      padding: 18px 18px 30px;
       border: 1px solid rgba(155, 68, 236, 0.25);
       transition: all 0.35s ease;
+      overflow: hidden;
     }
 
     .service-card:hover {
@@ -119,6 +120,33 @@
       color: #9b44ec;
       font-size: 1.6rem;
       margin-bottom: 10px;
+    }
+
+    .service-image-wrap {
+      position: relative;
+      margin: -18px -18px 20px;
+      overflow: hidden;
+      border-radius: 18px 18px 12px 12px;
+      background: #0b0f2f;
+    }
+
+    .service-image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11, 15, 47, 0.08), rgba(11, 15, 47, 0.42));
+    }
+
+    .service-image {
+      width: 100%;
+      height: 205px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover .service-image {
+      transform: scale(1.05);
     }
 
     .service-tools {
@@ -303,6 +331,75 @@
   object-fit: cover;
 }
 
+  .cursor-ring {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid rgba(86, 214, 255, 0.42);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9998;
+    transition: transform 0.18s ease, width 0.28s ease, height 0.28s ease, border-color 0.2s ease;
+  }
+  .cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: #56d6ff;
+    box-shadow: 0 0 12px rgba(86, 214, 255, 0.85);
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  }
+  .cursor-dot.hover { width: 16px; height: 16px; background: #5cf0b2; box-shadow: 0 0 18px rgba(92, 240, 178, 0.75); }
+  .cursor-ring.hover { width: 54px; height: 54px; border-color: rgba(92, 240, 178, 0.35); }
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(155, 68, 236, 0.22), transparent 24%),
+      radial-gradient(circle at 85% 12%, rgba(96, 165, 250, 0.16), transparent 22%),
+      linear-gradient(160deg, #081028 0%, #0b1435 48%, #111b46 100%);
+  }
+  .navbar {
+    background: rgba(8, 16, 40, 0.78);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(155, 68, 236, 0.14);
+  }
+  @media (hover: none), (pointer: coarse) {
+    .cursor-dot, .cursor-ring {
+      display: none;
+    }
+  }
+  body {
+    background:
+      radial-gradient(circle at 8% 10%, rgba(155, 68, 236, 0.3), transparent 18%),
+      radial-gradient(circle at 88% 12%, rgba(96, 165, 250, 0.22), transparent 20%),
+      radial-gradient(circle at 50% 85%, rgba(45, 212, 191, 0.12), transparent 24%),
+      linear-gradient(160deg, #07101f 0%, #0a1530 42%, #101d45 100%);
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+  body::before {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 58px 58px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.46), rgba(0,0,0,0.12));
+  }
+  body::after {
+    background:
+      radial-gradient(circle at 14% 22%, rgba(155, 68, 236, 0.14), transparent 20%),
+      radial-gradient(circle at 82% 28%, rgba(59, 130, 246, 0.12), transparent 18%),
+      radial-gradient(circle at 54% 72%, rgba(45, 212, 191, 0.08), transparent 22%);
+  }
+  .services-page {
+    background: linear-gradient(180deg, rgba(17, 22, 63, 0.8), rgba(11, 18, 48, 0.9));
+  }
   </style>
 </head>
 
@@ -338,6 +435,9 @@
 
     <!-- SERVICE 1 -->
     <div class="service-card reveal">
+      <div class="service-image-wrap">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80" alt="Web development service" class="service-image">
+      </div>
       <h2 class="reveal">Web Development</h2>
       <div class="service-tools">HTML • CSS • JavaScript</div>
       <p  class="reveal">
@@ -349,6 +449,9 @@
 
     <!-- SERVICE 2 -->
     <div class="service-card reveal">
+      <div class="service-image-wrap">
+        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&q=80" alt="Problem solving and programming" class="service-image">
+      </div>
       <h2  class="reveal">Problem Solving (DSA)</h2>
       <div class="service-tools">Data Structures • Algorithms</div>
       <p  class="reveal">
@@ -360,6 +463,9 @@
 
     <!-- SERVICE 3 -->
     <div class="service-card reveal">
+      <div class="service-image-wrap">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80" alt="Data analysis service" class="service-image">
+      </div>
       <h2  class="reveal">Data Analysis</h2>
       <div class="service-tools">Pandas • NumPy</div>
       <p  class="reveal">
@@ -371,6 +477,9 @@
 
     <!-- SERVICE 4 -->
     <div class="service-card reveal">
+      <div class="service-image-wrap">
+        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80" alt="Software development service" class="service-image">
+      </div>
       <h2  class="reveal">Software Development</h2>
       <div class="service-tools">Java • OOP Concepts</div>
       <p  class="reveal">
@@ -430,24 +539,40 @@
 
 <!-- CURSOR -->
 <div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
 
 <!-- CURSOR SCRIPT -->
 <script>
   const cursor = document.querySelector('.cursor-dot');
+  const cursorRing = document.querySelector('.cursor-ring');
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
 
   document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
   });
 
-  document.querySelectorAll('a, .service-card').forEach(el => {
+  (function animateRing() {
+    ringX += (mouseX - ringX) * 0.16;
+    ringY += (mouseY - ringY) * 0.16;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  document.querySelectorAll('a, button, .service-card').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-      cursor.style.background = '#c084fc';
+      cursor.classList.add('hover');
+      cursorRing.classList.add('hover');
     });
     el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursor.style.background = '#9b44ec';
+      cursor.classList.remove('hover');
+      cursorRing.classList.remove('hover');
     });
   });
 </script>

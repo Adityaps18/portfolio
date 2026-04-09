@@ -4,14 +4,45 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: "Poppins", sans-serif;
-      background: #0b0f2f;
-      color: white;
-    }
-
     html {
       scroll-behavior: smooth;
+      background: #081028;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(155, 68, 236, 0.3), transparent 18%),
+        radial-gradient(circle at 88% 12%, rgba(96, 165, 250, 0.22), transparent 20%),
+        radial-gradient(circle at 50% 85%, rgba(45, 212, 191, 0.12), transparent 24%),
+        linear-gradient(160deg, #07101f 0%, #0a1530 42%, #101d45 100%);
+      color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::before {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.46), rgba(0,0,0,0.12));
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at 14% 22%, rgba(155, 68, 236, 0.14), transparent 20%),
+        radial-gradient(circle at 82% 28%, rgba(59, 130, 246, 0.12), transparent 18%),
+        radial-gradient(circle at 54% 72%, rgba(45, 212, 191, 0.08), transparent 22%);
     }
 
     /* ================= NAVBAR ================= */
@@ -20,12 +51,14 @@
       top: 0;
       width: 100%;
       height: 70px;
-      background: #0b0f2f;
+      background: rgba(8, 16, 40, 0.78);
+      backdrop-filter: blur(16px);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 40px;
       z-index: 1000;
+      border-bottom: 1px solid rgba(155, 68, 236, 0.14);
     }
 
     .logo {
@@ -194,8 +227,9 @@
   /* ================= ABOUT SECTION ================= */
 
 .about {
-  background: #11163f;
+  background: linear-gradient(180deg, rgba(17, 22, 63, 0.88), rgba(12, 20, 52, 0.88));
   padding: 120px 0;
+  position: relative;
 }
 
 .about-container {
@@ -282,9 +316,9 @@
   }
 }
 .cursor-dot{
-    width: 10px;
-  height: 10px;
-  background: #9b44ec;
+    width: 8px;
+  height: 8px;
+  background: #56d6ff;
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -292,23 +326,50 @@
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px rgba(86, 214, 255, 0.85);
+  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(86, 214, 255, 0.42);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.28s ease, height 0.28s ease, border-color 0.2s ease;
+}
+.cursor-dot.hover {
+  width: 16px;
+  height: 16px;
+  background: #5cf0b2;
+  box-shadow: 0 0 18px rgba(92, 240, 178, 0.75);
+}
+.cursor-ring.hover {
+  width: 54px;
+  height: 54px;
+  border-color: rgba(92, 240, 178, 0.35);
 }
 @media (hover: none), (pointer: coarse) {
-  .cursor-dot {
+  .cursor-dot, .cursor-ring {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
-  .cursor-dot {
+  .cursor-dot, .cursor-ring {
     display: none;
   }
 }
 /* ================= SKILLS SECTION ================= */
 
 .skills {
-  background: #0b0f2f;
+  background: linear-gradient(180deg, rgba(9, 15, 42, 0.62), rgba(11, 18, 48, 0.76));
   padding: 120px 0;
+  position: relative;
 }
 
 /* ===== SKILLS HEADER ===== */
@@ -338,7 +399,7 @@
   max-width: 1100px;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 35px;
   padding: 0 40px;
 }
@@ -346,11 +407,35 @@
 /* individual card */
 .skill-card {
   background: #11163f;
-  padding: 35px 30px;
+  padding: 18px 18px 28px;
   border-radius: 12px;
   border: 1px solid rgba(155, 68, 236, 0.2);
   transition: all 0.35s ease;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.skill-image-wrap {
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0b0f2f;
+}
+
+.skill-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 15, 47, 0.08), rgba(10, 15, 47, 0.48));
+}
+
+.skill-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
 }
 
 .skill-card h3 {
@@ -370,6 +455,10 @@
   transform: scale(1.08);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   border-color: #9b44ec;
+}
+
+.skill-card:hover .skill-image {
+  transform: scale(1.05);
 }
 /* skill subtitle */
 .skill-sub {
@@ -395,8 +484,9 @@
 /* ================= PROJECTS SECTION ================= */
 
 .projects {
-  background: #11163f;
+  background: linear-gradient(180deg, rgba(17, 22, 63, 0.82), rgba(11, 18, 48, 0.88));
   padding: 120px 0;
+  position: relative;
 }
 
 .projects-header {
@@ -429,10 +519,32 @@
 /* individual project card */
 .project-card {
   background: #0b0f2f;
-  padding: 35px 30px;
+  padding: 18px 18px 28px;
   border-radius: 12px;
   border: 1px solid rgba(155, 68, 236, 0.2);
   transition: all 0.35s ease;
+  overflow: hidden;
+}
+
+.project-image-wrap {
+  position: relative;
+  margin: -18px -18px 20px;
+  overflow: hidden;
+}
+
+.project-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 15, 47, 0.12), rgba(10, 15, 47, 0.52));
+}
+
+.project-image {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
 }
 
 .project-card h3 {
@@ -459,6 +571,10 @@
   transform: scale(1.08);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   border-color: #9b44ec;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.05);
 }
 
 /* ================= RESPONSIVE ================= */
@@ -502,8 +618,9 @@
 /* ================= SERVICES SECTION ================= */
 
 .services {
-  background: #0b0f2f;
+  background: linear-gradient(180deg, rgba(9, 15, 42, 0.62), rgba(11, 18, 48, 0.78));
   padding: 120px 0;
+  position: relative;
 }
 
 .services-header {
@@ -588,7 +705,9 @@
 /* ================= CONTACT (PROFESSIONAL FIX) ================= */
 
 .contact {
-  background: linear-gradient(135deg, #0b0f2f, #11163f);
+  background:
+    radial-gradient(circle at top center, rgba(155, 68, 236, 0.14), transparent 24%),
+    linear-gradient(135deg, rgba(11, 15, 47, 0.92), rgba(17, 22, 63, 0.96));
   padding: 140px 20px;
 }
 
@@ -732,8 +851,9 @@
 /* ================= BLOG SECTION ================= */
 
 .blog {
-  background: #0b0f2f;
+  background: linear-gradient(180deg, rgba(9, 15, 42, 0.62), rgba(11, 18, 48, 0.78));
   padding: 120px 0;
+  position: relative;
 }
 
 .blog-header {
@@ -823,7 +943,7 @@
 .about-page {
   min-height: 100vh;
   padding: 140px 40px;
-  background: #0b0f2f;
+  background: linear-gradient(180deg, rgba(9, 15, 42, 0.64), rgba(11, 18, 48, 0.82));
   color: white;
 }
 

@@ -30,14 +30,37 @@
 
     .cursor-dot {
       position: fixed;
-      width: 10px;
-      height: 10px;
-      background: #9b44ec;
+      width: 8px;
+      height: 8px;
+      background: #56d6ff;
       border-radius: 50%;
       pointer-events: none;
       transform: translate(-50%, -50%);
       z-index: 9999;
-      transition: transform 0.15s ease, background 0.15s ease;
+      box-shadow: 0 0 12px rgba(86, 214, 255, 0.85);
+      transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    }
+    .cursor-ring {
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid rgba(86, 214, 255, 0.42);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9998;
+      transition: transform 0.18s ease, width 0.28s ease, height 0.28s ease, border-color 0.2s ease;
+    }
+    .cursor-dot.hover {
+      width: 16px;
+      height: 16px;
+      background: #5cf0b2;
+      box-shadow: 0 0 18px rgba(92, 240, 178, 0.75);
+    }
+    .cursor-ring.hover {
+      width: 54px;
+      height: 54px;
+      border-color: rgba(92, 240, 178, 0.35);
     }
 
     @media (max-width: 768px) {
@@ -47,7 +70,7 @@
     }
 
     @media (hover: none), (pointer: coarse) {
-      .cursor-dot {
+      .cursor-dot, .cursor-ring {
         display: none;
       }
     }
@@ -346,24 +369,40 @@
 </script>
 <!-- CURSOR -->
 <div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
 
 <!-- CURSOR SCRIPT -->
 <script>
   const cursor = document.querySelector('.cursor-dot');
+  const cursorRing = document.querySelector('.cursor-ring');
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
 
   document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
   });
 
-  document.querySelectorAll('a, .skill-card').forEach(el => {
+  (function animateRing() {
+    ringX += (mouseX - ringX) * 0.16;
+    ringY += (mouseY - ringY) * 0.16;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  document.querySelectorAll('a, button, .about-image img, .contact-item, .skill-card, .project-card').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-      cursor.style.background = '#c084fc';
+      cursor.classList.add('hover');
+      cursorRing.classList.add('hover');
     });
     el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursor.style.background = '#9b44ec';
+      cursor.classList.remove('hover');
+      cursorRing.classList.remove('hover');
     });
   });
 </script>
